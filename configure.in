@@ -1,0 +1,48 @@
+# Process this file with autoconf to produce a configure script.
+
+AC_INIT(DESCRIPTION)
+
+AC_PROG_CC()
+
+AC_ARG_WITH(sprng,
+            AC_HELP_STRING([--with-sprng=/path/to/sprng],
+                           [Location of SPRNG library]),
+            [SPRNG_ROOT=${withval}],) 
+
+echo "Try to find sprng.h ..."
+if test -f ${SPRNG_ROOT}/include/sprng.h; then
+    echo "Found in ${SPRNG_ROOT}/include"
+    SPRNG_INCLUDE="-I${SPRNG_ROOT}/include"
+else 
+    AC_CHECK_HEADER(sprng.h,SPRNG_INCLUDE="",
+                    [ echo "Cannot find sprng 2.0 header file."; exit 1 ])
+fi
+
+echo "Try to find libsprng.a ..."
+if test -f ${SPRNG_ROOT}/lib/libsprng.a; then
+    echo "Found in ${SPRNG_ROOT}/lib"
+    SPRNG_LIBS="-L${SPRNG_ROOT}/lib -lsprng"
+else
+    AC_CHECK_LIB(sprng,main,SPRNG_LIBS="",
+                 [ echo "Cannot find libsprng"; exit 1 ])
+fi
+
+AC_CHECK_LIB(gmp,main,SPRNG_LIBS="$SPRNG_LIBS -lgmp",
+             [ echo "libgmp not found. exiting..."; exit 1 ])
+
+AC_ARG_ENABLE(check-pointers,
+              AC_HELP_STRING([--enable-check-pointers=yes],
+                             [Enable pointer checking in sprng (default=yes)]),
+              [ if test "${enableval}" = "yes"; then
+                    AC_DEFINE(CHECK_POINTERS)
+                fi ],
+              AC_DEFINE(CHECK_POINTERS),)
+
+PKG_LIBS="${SPRNG_LIBS}"
+PKG_CPPFLAGS="${SPRNG_INCLUDE}"
+
+AC_SUBST(PKG_LIBS)
+AC_SUBST(PKG_CPPFLAGS)
+AC_SUBST(DEFS)
+
+AC_OUTPUT(src/Makevars)

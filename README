@@ -1,0 +1,58 @@
+"rsprng" is an R package providing interface to SPRNG (Scalable Parallel
+Random Number Generator) library.
+
+Copywright (2001) Na (Michael) Li <lina@u.washington.edu> and 
+A. J. Rossini <rossini@u.washington.edu>.
+
+=============================================================================
+NOTICE
+=============================================================================
+
+rsprng is free software; you can redistribute  it and/or modify it under
+the terms of the GNU General Public License as published by the Free
+Software Foundation; either version 2, or (at your option) any later
+version.
+
+rsprng is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
+    
+A copy of the GNU General Public License is available on the World Wide
+Web at http://www.gnu.org/copyleft/gpl.html.  You can also obtain it by
+writing to the Free Software Foundation, Inc., 675 Mass Ave, Cambridge,
+MA 02139, USA.
+
+=============================================================================
+INSTALLATION:
+=============================================================================
+
+1.  Install SPRNG 2.0 (http:/sprng.cs.fsu.edu).  Note that the
+    generator pmlcg requires libgmp but it provides an outdated version of
+    gmp.h.  Find the following line in sprng2.0/SRC/pmlcg/pmlcg.c:
+
+    #include "gmp.h"
+
+    and change it to
+
+    #include <gmp.h>
+
+    to use the system header file.  It won't compile otherwise. 
+
+    Precompiled SPRNG deb and rpm packages are available upon request.
+
+2.  Install rsprng:
+
+    R INSTALL rsprng_version.tgz 
+    
+    If the SPRNG header file and library file are in a non-standard path use,
+    
+    R INSTALL rsprng_version.tgz --configure-args=--with-sprng=/path/to/sprng
+
+    The header files of SPRNG are ssumed to be in /path/to/sprng/include and
+    the library .a files are in /path/to/sprng/lib.  Alternative, one can also
+    define environment variable SPRNG_ROOT to be the path (so that R CMD check
+    can run).
+
+    By default pointer checking for SPRNG is enabled, to disable it, pass
+    '--configure-args=--disable-check-pointers' to 'R INSTALL'.

@@ -1,0 +1,7 @@
+2002-03-08: Version 0.4.2       Na (Michael) Li <lina@u.washington.edu>
+    
+    * Fixed a bug in rpvm_spawn where the last element of (char **) argv
+      should be NULL.  There were two bug reports (thanks to Kurt Hornik
+      <Kurt.Hornik@wu-wien.ac.at> and R. Woodrow Setzer, Jr.
+      <Setzer.Woodrow@epamail.epa.gov>) about sporadic segfault in pvm_pkstr
+      called by pvm_spawn.  Hopefully this will now be fixed.

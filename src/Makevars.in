@@ -1,0 +1,5 @@
+# -*- Makefile -*-  vim : ft = make
+
+# PVM library and header files
+PKG_CPPFLAGS = @DEFS@ @PKG_CPPFLAGS@
+PKG_LIBS     = @PKG_LIBS@

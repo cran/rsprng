@@ -1,0 +1,9 @@
+free.sprng              Free memory used by SPRNG
+init.sprng              Initialize SPRNG (Scalable Parallel Random
+                        Number Generator)
+pack.sprng              Return the PRNG state.
+spawn.new.sprng         Spawn several new random number streams.
+spawn.sprng             Spawn new random number streams based on the
+                        current one.
+type.sprng              Return the type of the active SPRNG stream
+unpack.sprng            Restore the PRNG state.
