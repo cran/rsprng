@@ -7,7 +7,7 @@ AC_PROG_CC()
 AC_ARG_WITH(sprng,
             AC_HELP_STRING([--with-sprng=/path/to/sprng],
                            [Location of SPRNG library]),
-            [SPRNG_ROOT=${withval}],) 
+           [SPRNG_ROOT=${withval}],) 
 
 echo "Try to find sprng.h ..."
 if test -f ${SPRNG_ROOT}/include/sprng.h; then
@@ -27,8 +27,24 @@ else
                  [ echo "Cannot find libsprng"; exit 1 ])
 fi
 
-AC_CHECK_LIB(gmp,main,SPRNG_LIBS="$SPRNG_LIBS -lgmp",
-             [ echo "libgmp not found. exiting..."; exit 1 ])
+echo "Try to find libgmp.a if we need it ..."
+AC_ARG_WITH(gmp,
+            AC_HELP_STRING([--with-gmp=yes], 
+                           [whether sprng was built with gmp (default=yes)]),
+            [ use_gmp=${withval} ],
+            [ use_gmp="yes" ])
+
+if test "${use_gmp}" = "no"; then
+    echo "OK, don't need it." 
+elif test "${use_gmp}" = "yes"; then
+    AC_CHECK_LIB(gmp,main,SPRNG_LIBS="$SPRNG_LIBS -lgmp",
+                 [ echo "libgmp not found. exiting..."; exit 1 ])
+elif test -f "${use_gmp}/libgmp.a"; then
+    SPRNG_LIBS="$SPRNG_LIBS -L${use_gmp} -lgmp"
+else
+    echo "libgmp is needed but not found in specified directory ${withval}."
+    exit 1
+fi
 
 AC_ARG_ENABLE(check-pointers,
               AC_HELP_STRING([--enable-check-pointers=yes],

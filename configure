@@ -830,6 +830,7 @@ Optional Packages:
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-sprng=/path/to/sprng
                           Location of SPRNG library
+  --with-gmp=yes          whether sprng was built with gmp (default=yes)
 
 Some influential environment variables:
   CC          C compiler command
@@ -2531,7 +2532,20 @@ fi
 
 fi
 
-echo "$as_me:$LINENO: checking for main in -lgmp" >&5
+echo "Try to find libgmp.a if we need it ..."
+
+# Check whether --with-gmp or --without-gmp was given.
+if test "${with_gmp+set}" = set; then
+  withval="$with_gmp"
+   use_gmp=${withval}
+else
+   use_gmp="yes"
+fi;
+
+if test "${use_gmp}" = "no"; then
+    echo "OK, don't need it."
+elif test "${use_gmp}" = "yes"; then
+    echo "$as_me:$LINENO: checking for main in -lgmp" >&5
 echo $ECHO_N "checking for main in -lgmp... $ECHO_C" >&6
 if test "${ac_cv_lib_gmp_main+set}" = set; then
   echo $ECHO_N "(cached) $ECHO_C" >&6
@@ -2586,6 +2600,12 @@ else
    echo "libgmp not found. exiting..."; exit 1
 fi
 
+elif test -f "${use_gmp}/libgmp.a"; then
+    SPRNG_LIBS="$SPRNG_LIBS -L${use_gmp} -lgmp"
+else
+    echo "libgmp is needed but not found in specified directory ${withval}."
+    exit 1
+fi
 
 # Check whether --enable-check-pointers or --disable-check-pointers was given.
 if test "${enable_check_pointers+set}" = set; then

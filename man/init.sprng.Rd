@@ -207,8 +207,7 @@ runif (10)
 free.sprng ()
 }
 \author{
-  Na (Michael) Li \email{lina@u.washington.edu} and
-  A.J. Rossini \email{rossini@u.washington.edu}
+  Na (Michael) Li \email{lina@u.washington.edu}
 }
 \keyword{interface}
 \keyword{distribution}
