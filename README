@@ -56,3 +56,8 @@ INSTALLATION:
 
     By default pointer checking for SPRNG is enabled, to disable it, pass
     '--configure-args=--disable-check-pointers' to 'R INSTALL'.
+
+    libgmp.a is needed at linking.  If it is installed in a non-standard
+    location, you can specify it via:
+
+    R INSTALL --configure-args='--with-gmp=/path/to/libgmp.a'.

@@ -9,7 +9,7 @@
   that the default RNG is substituted with the parallel one.
 }
 \usage{
-init.sprng (nstream, streamno, seed = 0, kindprng = "LFG", para = 0)
+init.sprng (nstream, streamno, seed = 0, kindprng = "default", para = 0)
 }
 \arguments{
   \item{nstream}{total number of random number streams to be

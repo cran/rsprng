@@ -5,7 +5,7 @@
   \code{spawn.new.sprng} generates several new PRNG streams at one pass.
 }
 \usage{
-spawn.new.sprng (nstream, seed = 0, kindprng = "LFG", para = 0)
+spawn.new.sprng (nstream, seed = 0, kindprng = "default", para = 0)
 }
 \arguments{
   \item{nstream}{number of new streams to spawn}

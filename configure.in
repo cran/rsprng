@@ -40,6 +40,7 @@ elif test "${use_gmp}" = "yes"; then
     AC_CHECK_LIB(gmp,main,SPRNG_LIBS="$SPRNG_LIBS -lgmp",
                  [ echo "libgmp not found. exiting..."; exit 1 ])
 elif test -f "${use_gmp}/libgmp.a"; then
+    echo "Found libgmp.a at ${use_gmp}."
     SPRNG_LIBS="$SPRNG_LIBS -L${use_gmp} -lgmp"
 else
     echo "libgmp is needed but not found in specified directory ${withval}."
