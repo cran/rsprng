@@ -23,7 +23,7 @@ if test -f ${SPRNG_ROOT}/lib/libsprng.a; then
     echo "Found in ${SPRNG_ROOT}/lib"
     SPRNG_LIBS="-L${SPRNG_ROOT}/lib -lsprng"
 else
-    AC_CHECK_LIB(sprng,main,SPRNG_LIBS="",
+    AC_CHECK_LIB(sprng,main,SPRNG_LIBS="-lsprng",
                  [ echo "Cannot find libsprng"; exit 1 ])
 fi
 

@@ -2524,7 +2524,7 @@ fi
 echo "$as_me:$LINENO: result: $ac_cv_lib_sprng_main" >&5
 echo "${ECHO_T}$ac_cv_lib_sprng_main" >&6
 if test $ac_cv_lib_sprng_main = yes; then
-  SPRNG_LIBS=""
+  SPRNG_LIBS="-lsprng"
 else
    echo "Cannot find libsprng"; exit 1
 fi
