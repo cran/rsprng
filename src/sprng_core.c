@@ -1,6 +1,6 @@
 /*
  * Wrapper to core functions of sprng.
- * $Id: sprng_core.c,v 1.3 2002/04/23 00:14:32 nali Exp $
+ * $Id: sprng_core.c,v 1.6 2003/04/17 19:08:05 nali Exp $
  *
  **/
 
@@ -26,7 +26,7 @@ struct rngen
 };
 
 static int *streamid = 0;
-static double rn;
+static double rn = 0.0;
 
 SEXP r_init_sprng (SEXP sexp_gtype,
                    SEXP sexp_streamno,
@@ -46,10 +46,10 @@ SEXP r_init_sprng (SEXP sexp_gtype,
 
 SEXP r_pack_sprng ()
 {
-    char *rng_buffer;
+    char *rng_buffer = 0;
     int s = 0;
-    int i;
-    SEXP sexp_buffer;
+    int i = 0;
+    SEXP sexp_buffer = 0;
     if (streamid) {
         s = pack_sprng (streamid, &rng_buffer);
         PROTECT (sexp_buffer = allocVector (INTSXP, s));
@@ -57,31 +57,8 @@ SEXP r_pack_sprng ()
             INTEGER(sexp_buffer)[i] = (int) rng_buffer[i];
         }
         UNPROTECT (1);
+        free (rng_buffer);
         return sexp_buffer;
-    } else {
-        return R_NilValue;
-    }
-}
-
-SEXP r_unpack_sprng (SEXP sexp_packed_stream)
-{
-    SEXP sexp_oldrng_buffer;
-    char *rng_buffer;
-    int s = length (sexp_packed_stream);
-    int i;
-
-    rng_buffer = (char *) R_alloc (s, sizeof (char));
-    for (i = 0; i < s; ++i) {
-        rng_buffer[i] = (char) INTEGER (sexp_packed_stream)[i];
-    }
-    if (streamid) {
-        sexp_oldrng_buffer = r_pack_sprng ();
-        free_sprng (streamid);
-    }
-    streamid = unpack_sprng (rng_buffer);
-
-    if (streamid) {
-        return sexp_oldrng_buffer;
     } else {
         return R_NilValue;
     }
@@ -89,12 +66,37 @@ SEXP r_unpack_sprng (SEXP sexp_packed_stream)
 
 SEXP r_free_sprng ()
 {
-    SEXP sexp_oldrng_buffer;
-    int nstream;
+    SEXP sexp_oldrng_buffer = 0;
+    int nstream = 0;
     if (streamid) {
         sexp_oldrng_buffer = r_pack_sprng ();
         nstream = free_sprng (streamid);
         streamid = 0;
+        return sexp_oldrng_buffer;
+    } else {
+        return R_NilValue;
+    }
+}
+
+SEXP r_unpack_sprng (SEXP sexp_packed_stream)
+{
+    SEXP sexp_oldrng_buffer = 0;
+    char *rng_buffer = 0;
+    int s = length (sexp_packed_stream);
+    int i = 0;
+    int have_oldstream = 0;
+
+    rng_buffer = (char *) R_alloc (s, sizeof (char));
+    for (i = 0; i < s; ++i) {
+        rng_buffer[i] = (char) INTEGER (sexp_packed_stream)[i];
+    }
+    if (streamid) {
+        have_oldstream = 1;
+        sexp_oldrng_buffer = r_free_sprng ();
+    }
+    streamid = unpack_sprng (rng_buffer);
+
+    if (have_oldstream) {
         return sexp_oldrng_buffer;
     } else {
         return R_NilValue;
@@ -111,7 +113,7 @@ SEXP r_spawn_new_sprng (SEXP sexp_gtype,
     int seed     = INTEGER (sexp_seed)[0];
     int param    = INTEGER (sexp_param)[0];
     int  *savedstream = streamid;
-    int i;
+    int i = 0;
     SEXP sexp_spawned_streams;
     PROTECT (sexp_spawned_streams = allocVector (VECSXP, nstreams));
     for (i = 0; i < nstreams; ++i) {
@@ -126,11 +128,11 @@ SEXP r_spawn_new_sprng (SEXP sexp_gtype,
 
 SEXP r_spawn_sprng (SEXP sexp_nspawned)
 {
-    int **newstreams;
+    int **newstreams = 0;
     int *savedstream = streamid;
-    int i;
+    int i = 0;
     int nspawned = INTEGER (sexp_nspawned)[0];
-    SEXP sexp_spawned_streams;
+    SEXP sexp_spawned_streams = 0;
 
     if (streamid) {
         nspawned = spawn_sprng (streamid, nspawned, &newstreams);
@@ -153,7 +155,7 @@ SEXP r_spawn_sprng (SEXP sexp_nspawned)
 SEXP r_type_sprng ()
 {
     int gtype = ((struct rngen *) streamid)->rng_type;
-    char *type;
+    char *type = 0;
     switch (gtype) {
     case SPRNG_LFG :
         type = "LFG";

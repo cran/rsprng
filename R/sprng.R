@@ -1,5 +1,5 @@
 # Emacs: -*- r -*- vim: ft=r 
-# $Id: sprng.R,v 1.3 2002/04/23 00:14:32 nali Exp $
+# $Id: sprng.R,v 1.4 2003/04/17 19:38:16 nali Exp $
 #
 # wrapper functions for SPRNG (Scalable Parallel Random Number Generator)
 # library
@@ -23,7 +23,8 @@ init.sprng <- function (nstream, streamno,
         stop(paste("'", kindprng, "' is not a valid choice", sep = ""))
     }
     .Call ("r_init_sprng", as.integer (kind), as.integer (streamno),
-           as.integer (nstream), as.integer (seed), as.integer (para))
+           as.integer (nstream), as.integer (seed), as.integer (para),
+           PACKAGE = "rsprng")
     if (exists (".Random.seed") && .Random.seed[1] == 5) {
         # Leftover from have used user defined rng and forgot
         # to switch back after last run
@@ -33,18 +34,19 @@ init.sprng <- function (nstream, streamno,
 }
 
 pack.sprng <- function () {
-    .Call ("r_pack_sprng")
+    .Call ("r_pack_sprng", PACKAGE = "rsprng")
 }
 
 unpack.sprng <- function (rngstate) {
-    invisible (.Call ("r_unpack_sprng", as.integer (rngstate)))
+    invisible (.Call ("r_unpack_sprng", as.integer (rngstate),
+               PACKAGE = "rsprng"))
 }
 
 free.sprng <- function (kind.old = c("Marsaglia-Multicarry",
                                      "Kinderman-Ramage")) {
     ## restore old RNG kind
     RNGkind (kind.old[1], kind.old[2])
-    invisible (.Call ("r_free_sprng"))
+    invisible (.Call ("r_free_sprng", PACKAGE = "rsprng"))
 }
 
 spawn.new.sprng <- function (nstream,
@@ -64,14 +66,15 @@ spawn.new.sprng <- function (nstream,
     }
     newstreams <- .Call ("r_spawn_new_sprng", as.integer (kind), 
                         as.integer (nstream), as.integer (seed), 
-                        as.integer (para))
+                        as.integer (para), PACKAGE = "rsprng")
     matrix (unlist (newstreams), ncol = length (newstreams))
 }
 
 spawn.sprng <- function (nspawn) {
-    newstreams <- .Call ("r_spawn_sprng", as.integer (nspawn))
+    newstreams <- .Call ("r_spawn_sprng", as.integer (nspawn),
+                         PACKAGE = "rsprng")
     matrix (unlist (newstreams), ncol = length (newstreams))
 }
 
 type.sprng <- function ()
-    .Call ("r_type_sprng")
+    .Call ("r_type_sprng", PACKAGE = "rsprng")

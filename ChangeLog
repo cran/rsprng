@@ -1,7 +1,11 @@
+2003-04-15: Version 0.2.1     Na (Michael) Li <lina@u.washington.edu>
+	
+	* Fixed a memory leaking bug.
+	
 2002-05-03: Version 0.1.1     Na (Michael) Li <lina@u.washington.edu>
 
-    * Fix configure script.
+	* Fix configure script.
 
 2002-04-28: Version 0.1       Na (Michael) Li <lina@u.washington.edu>
-    
-    * Splitted from rpvm.  First release.
+
+	* Splitted from rpvm.  First release.
