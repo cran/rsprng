@@ -1,0 +1,9 @@
+
+useDynLib (rsprng)
+export (init.sprng)
+export (pack.sprng)
+export (unpack.sprng)
+export (free.sprng)
+export (spawn.new.sprng)
+export (spawn.sprng)
+export (type.sprng)

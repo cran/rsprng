@@ -13,6 +13,10 @@ echo "Try to find sprng.h ..."
 if test -f ${SPRNG_ROOT}/include/sprng.h; then
     echo "Found in ${SPRNG_ROOT}/include"
     SPRNG_INCLUDE="-I${SPRNG_ROOT}/include"
+elif test -f "/usr/include/sprng/sprng.h"; then
+    # Latest Debian puts the header files there
+    echo "Found in /usr/include/sprng"
+    SPRNG_INCLUDE="-I/usr/include/sprng"
 else 
     AC_CHECK_HEADER(sprng.h,SPRNG_INCLUDE="",
                     [ echo "Cannot find sprng 2.0 header file."; exit 1 ])
@@ -36,6 +40,9 @@ AC_ARG_WITH(gmp,
 
 if test "${use_gmp}" = "no"; then
     echo "OK, don't need it." 
+elif test -f ${GMP_ROOT}/lib/libgmp.a; then
+    echo "Found libgmp.a at ${GMP_ROOT}."
+    SPRNG_LIBS="$SPRNG_LIBS -L${GMP_ROOT}/lib -lgmp"
 elif test "${use_gmp}" = "yes"; then
     AC_CHECK_LIB(gmp,main,SPRNG_LIBS="$SPRNG_LIBS -lgmp",
                  [ echo "libgmp not found. exiting..."; exit 1 ])

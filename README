@@ -1,8 +1,7 @@
 "rsprng" is an R package providing interface to SPRNG (Scalable Parallel
 Random Number Generator) library.
 
-Copywright (2001) Na (Michael) Li <lina@u.washington.edu> and 
-A. J. Rossini <rossini@u.washington.edu>.
+Copywright (2001) Na (Michael) Li <nali@umn.edu>
 
 =============================================================================
 NOTICE
@@ -39,15 +38,18 @@ INSTALLATION:
 
     to use the system header file.  It won't compile otherwise. 
 
-    Precompiled SPRNG deb and rpm packages are available upon request.
+    If you encounter problems compiling SPRNG 2.0, this note
+    http://www.biostat.umn.edu/~nali/rsprng.html might be of help.
+    I have also made available some precompiled SPRNG packages at
+    http://www.biostat.umn.edu/~nali/SoftwareListing.html.
 
 2.  Install rsprng:
 
-    R INSTALL rsprng_version.tgz 
+    R CMD INSTALL rsprng_version.tgz 
     
     If the SPRNG header file and library file are in a non-standard path use,
     
-    R INSTALL rsprng_version.tgz --configure-args=--with-sprng=/path/to/sprng
+    R CMD INSTALL --configure-args=--with-sprng=/path/to/sprng rsprng_version.tgz 
 
     The header files of SPRNG are ssumed to be in /path/to/sprng/include and
     the library .a files are in /path/to/sprng/lib.  Alternative, one can also
@@ -60,4 +62,4 @@ INSTALLATION:
     libgmp.a is needed at linking.  If it is installed in a non-standard
     location, you can specify it via:
 
-    R INSTALL --configure-args='--with-gmp=/path/to/libgmp.a'.
+    R CMD INSTALL --configure-args='--with-gmp=/path/to/libgmp.a'.

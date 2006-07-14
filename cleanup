@@ -1,6 +1,6 @@
 #! /bin/sh
 find . -name "*~" -exec /bin/rm -rf {} \;
-find . -name "*.cache" -exec /bin/rm -rf {} \;
+/bin/rm -rf autom4*
 /bin/rm -rf ./config.*
 /bin/rm -rf src/Makevars
 /bin/rm -rf src/*.so src/*.o

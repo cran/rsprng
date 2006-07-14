@@ -1,3 +1,9 @@
+2006-07-14: Version 0.3.3     Na Li <nali@umn.edu>
+
+        * Find sprng.h in /usr/include/sprng/sprng.h on Debian.
+        * Added NAMESPACE file.
+        * Removed INDEX file.
+
 2003-04-15: Version 0.2.1     Na (Michael) Li <lina@u.washington.edu>
 	
 	* Fixed a memory leaking bug.

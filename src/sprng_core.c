@@ -15,7 +15,7 @@
 
 /*
  *  This struct is used to retrieve "rng_type" from the rng specific
- * "struct rngen". RNGs have different definations for "struct rngen",
+ * "struct rngen". RNGs have different definitions for "struct rngen",
  *  however, its first field must be the integer "rng_type"
  *
  *  It is defined in sprng.c but not in sprng.h
