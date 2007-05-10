@@ -2244,6 +2244,9 @@ elif test -f "/usr/include/sprng/sprng.h"; then
     # Latest Debian puts the header files there
     echo "Found in /usr/include/sprng"
     SPRNG_INCLUDE="-I/usr/include/sprng"
+elif test -f "/usr/local/include/sprng.h"; then
+    echo "Found in /usr/local/include";
+    SPRNG_INCLUDE="-I/usr/local/include";
 else
 
 ac_ext=c

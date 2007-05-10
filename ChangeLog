@@ -1,3 +1,7 @@
+2007-05-10: Version 0.3.4     Na Li <nali@umn.edu>
+        * Updated configure.in to add -I/usr/local/include which seems
+          necessary.
+        
 2006-07-14: Version 0.3.3     Na Li <nali@umn.edu>
 
         * Find sprng.h in /usr/include/sprng/sprng.h on Debian.
