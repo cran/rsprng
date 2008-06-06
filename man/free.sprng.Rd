@@ -3,15 +3,12 @@
 \title{Free memory used by SPRNG}
 \description{
   \code{free.sprng} frees the memory allocated to save the PRNG states by
-  SPRNG and calls \code{\link{RNGkind}} to restore R's serial RNG.
+  SPRNG and calls \code{\link{RNGkind}} to restore R's default RNG.
 }
 \usage{
-free.sprng (kind.old = c("Marsaglia-Multicarry",
-                         "Kinderman-Ramage"))
+free.sprng ()
 }
 \arguments{
-  \item{kind.old}{a length 2 character vector, the old rng kinds
-  (possiblly returned by \code{\link{init.sprng}})}
 }
 \value{
   Return current PRNG state and \code{NULL} if there were no active PRNG
@@ -29,12 +26,12 @@ free.sprng (kind.old = c("Marsaglia-Multicarry",
   \code{\link{init.sprng}}, \code{\link{pack.sprng}}
 }
 \examples{
-oldrng <- init.sprng (1, 0, seed = 231, kind = "PMLCG")
+init.sprng (1, 0, seed = 231, kind = "PMLCG")
 runif (10)
-free.sprng (oldrng)
+free.sprng ()
 }
 \author{
-  Na (Michael) Li \email{lina@u.washington.edu}
+  Na (Michael) Li \email{nali@umn.edu}
 }
 \keyword{interface}
 \keyword{distribution}

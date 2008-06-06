@@ -22,15 +22,11 @@ init.sprng <- function (nstream, streamno,
     if (is.na (kind)) {
         stop(paste("'", kindprng, "' is not a valid choice", sep = ""))
     }
+    RNGkind ("user")
     .Call ("r_init_sprng", as.integer (kind), as.integer (streamno),
            as.integer (nstream), as.integer (seed), as.integer (para),
            PACKAGE = "rsprng")
-    if (exists (".Random.seed") && .Random.seed[1] == 5) {
-        # Leftover from have used user defined rng and forgot
-        # to switch back after last run
-        set.seed (0)
-    }
-    RNGkind ("user")
+    invisible (NULL)
 }
 
 pack.sprng <- function () {
@@ -42,10 +38,9 @@ unpack.sprng <- function (rngstate) {
                PACKAGE = "rsprng"))
 }
 
-free.sprng <- function (kind.old = c("Marsaglia-Multicarry",
-                                     "Kinderman-Ramage")) {
+free.sprng <- function () {
     ## restore old RNG kind
-    RNGkind (kind.old[1], kind.old[2])
+    RNGkind ("default")
     invisible (.Call ("r_free_sprng", PACKAGE = "rsprng"))
 }
 

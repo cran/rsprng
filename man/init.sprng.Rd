@@ -5,8 +5,8 @@
   \code{init.sprng} initializes the parallel random number generator
   types and seeds.
 
-  \code{RNGkind ("user")} is called at the end of these functions so
-  that the default RNG is substituted with the parallel one.
+  \code{RNGkind ("user")} is called if necessary so that the default RNG
+  is substituted with the parallel one.
 }
 \usage{
 init.sprng (nstream, streamno, seed = 0, kindprng = "default", para = 0)
@@ -185,8 +185,7 @@ init.sprng (nstream, streamno, seed = 0, kindprng = "default", para = 0)
   }
 }
 \value{
-  Return the a two-element character vector of the RNG and normal kinds
-  in use before the call.
+  None.
 }
 \note{
   Only one active stream is allowed for each R process.  Multiple
@@ -207,7 +206,7 @@ runif (10)
 free.sprng ()
 }
 \author{
-  Na (Michael) Li \email{lina@u.washington.edu}
+  Na (Michael) Li \email{nali@umn.edu}
 }
 \keyword{interface}
 \keyword{distribution}

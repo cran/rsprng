@@ -30,7 +30,7 @@ all (a1 == a2)
 free.sprng ()
 }
 \author{
-  Na (Michael) Li \email{lina@u.washington.edu}
+  Na (Michael) Li \email{nali@umn.edu}
 }
 \keyword{distribution}
 \keyword{interface}

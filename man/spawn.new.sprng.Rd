@@ -51,7 +51,7 @@ runif (10)
 free.sprng ()
 }
 \author{
-  Na (Michael) Li \email{lina@u.washington.edu}
+  Na (Michael) Li \email{nali@umn.edu}
 }
 \keyword{interface}
 \keyword{distribution}
