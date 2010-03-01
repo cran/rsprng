@@ -181,9 +181,22 @@ SEXP r_type_sprng ()
     return mkString (type);
 }
 
+/* R entry points */
 double *user_unif_rand ()
 {
     rn = sprng (streamid);
     return &rn;
 }
+/*
 
+void user_unif_init (Int32 seed_in)
+{
+
+}
+
+int *user_unif_nseed () {
+}
+int *user_unif_seedloc () {
+}
+
+*/

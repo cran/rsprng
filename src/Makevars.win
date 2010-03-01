@@ -1,0 +1,4 @@
+# -*- Makefile -*-  vim : ft = make
+
+PKG_CPPFLAGS = -I$(LOCAL_SOFT)/include
+PKG_LIBS     = -L$(LOCAL_SOFT)/lib -lsprng -lgmp

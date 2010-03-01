@@ -1,6 +1,12 @@
+2010-03-01: Version 1.0       Na Li <wuolong@gmail.com>
+	* Incorporated Prof. Ripley's patch to build on Windows.
+
+2009-09-08: Version 0.5       Na Li <wuolong@gmail.com>
+	* Updated DESCRIPTION to conform to new code standards.
+
 2008-06-06: Version 0.4       Na Li <nali@umn.edu>
 	* sprng.R Fixed a subtle bug in init.sprng ().  Thanks Márcia
-	Alves de Inda for pointing it out.
+	  Alves de Inda for pointing it out.
 	
 2007-05-10: Version 0.3.4     Na Li <nali@umn.edu>
         * Updated configure.in to add -I/usr/local/include which seems
